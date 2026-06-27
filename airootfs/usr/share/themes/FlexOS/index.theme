@@ -1,0 +1,23 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=FlexOS
+Comment=Verre dépoli moderne - Glassmorphism pour XFCE
+Encoding=UTF-8
+
+[GNOME Shell]
+Name=FlexOS
+
+[GTK 2.0]
+Name=FlexOS
+
+[GTK 3.0]
+Name=FlexOS
+
+[GTK 4.0]
+Name=FlexOS
+
+[XFWM4]
+Name=FlexOS
+
+[Metacity]
+Name=FlexOS

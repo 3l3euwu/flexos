@@ -1,0 +1,41 @@
+#!/bin/bash
+# FlexOS XFCE Autostart
+# Applique les configurations glassmorphism au login
+
+# Compositeur Picom (flou glassmorphism)
+if command -v picom &> /dev/null; then
+  picom --config ~/.config/picom/picom.conf &
+fi
+
+# Notifications
+if command -v dunst &> /dev/null; then
+  dunst &
+fi
+
+# Conky
+if command -v conky &> /dev/null; then
+  conky -c ~/.config/conky/conky.conf &
+fi
+
+# Network Manager
+if command -v nm-applet &> /dev/null; then
+  nm-applet &
+fi
+
+# Polkit agent
+if [ -f /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 ]; then
+  /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+fi
+
+# Power manager
+xfce4-power-manager --restart &
+
+# Presse-papiers
+if command -v xfce4-clipman &> /dev/null; then
+  xfce4-clipman &
+fi
+
+# Fond d'écran via xfdesktop (déjà géré par XFCE)
+# On force le fond glassmorphism
+xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/image-path -s /usr/share/backgrounds/flexos/flex-wallpaper.svg 2>/dev/null || true
+xfdesktop --reload 2>/dev/null &

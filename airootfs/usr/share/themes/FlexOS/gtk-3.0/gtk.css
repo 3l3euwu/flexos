@@ -1,0 +1,301 @@
+/* FlexOS GTK3 Theme - Glassmorphism Aesthetic */
+/* XFCE Desktop Environment */
+
+@define-color glass-bg rgba(255, 255, 255, 0.14);
+@define-color glass-border rgba(255, 255, 255, 0.28);
+@define-color glass-hover rgba(255, 255, 255, 0.22);
+@define-color glass-active rgba(255, 255, 255, 0.32);
+@define-color text-primary #ffffff;
+@define-color text-secondary rgba(255, 255, 255, 0.70);
+@define-color accent #7c4dff;
+@define-color accent-hover #9c7cff;
+@define-color shadow-dark rgba(0, 0, 0, 0.30);
+@define-color surface-dark rgba(20, 10, 40, 0.85);
+
+* {
+  font-family: "Cantarell", "Noto Sans", sans-serif;
+  outline-color: @accent;
+}
+
+.background, .window {
+  background-color: @surface-dark;
+  color: @text-primary;
+}
+
+window.background, .background {
+  background-color: transparent;
+}
+
+window {
+  border-radius: 14px;
+  background-color: @glass-bg;
+  border: 1px solid @glass-border;
+  box-shadow: 0 8px 32px @shadow-dark;
+}
+
+button {
+  background-color: @glass-bg;
+  border: 1px solid @glass-border;
+  border-radius: 10px;
+  color: @text-primary;
+  padding: 6px 14px;
+  transition: all 200ms ease;
+  -gtk-outline-radius: 10px;
+}
+
+button:hover {
+  background-color: @glass-hover;
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+button:active, button:checked {
+  background-color: @glass-active;
+}
+
+button.flat {
+  background: none;
+  border: none;
+  border-radius: 10px;
+}
+
+button.flat:hover {
+  background-color: @glass-hover;
+}
+
+button.suggested-action {
+  background-color: @accent;
+  border-color: @accent;
+  color: #ffffff;
+}
+
+button.suggested-action:hover {
+  background-color: @accent-hover;
+  border-color: @accent-hover;
+}
+
+entry {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid @glass-border;
+  border-radius: 10px;
+  color: @text-primary;
+  padding: 6px 10px;
+  caret-color: @accent;
+}
+
+entry:focus {
+  border-color: @accent;
+  background-color: rgba(124, 77, 255, 0.10);
+  box-shadow: 0 0 0 2px rgba(124, 77, 255, 0.25);
+}
+
+menu {
+  background-color: rgba(30, 15, 60, 0.95);
+  border: 1px solid @glass-border;
+  border-radius: 12px;
+  padding: 4px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+menuitem {
+  border-radius: 8px;
+  padding: 6px 10px;
+  color: @text-primary;
+}
+
+menuitem:hover {
+  background-color: @glass-hover;
+}
+
+menuitem check, menuitem radio {
+  margin-right: 6px;
+}
+
+scrollbar {
+  background-color: transparent;
+  border: none;
+}
+
+scrollbar slider {
+  background-color: @glass-border;
+  border-radius: 6px;
+  min-width: 5px;
+  min-height: 5px;
+}
+
+scrollbar slider:hover {
+  background-color: @glass-hover;
+}
+
+notebook {
+  background-color: transparent;
+  border: none;
+}
+
+notebook header {
+  background-color: @glass-bg;
+  border: none;
+  border-radius: 10px 10px 0 0;
+}
+
+notebook tab {
+  background-color: transparent;
+  border-radius: 8px 8px 0 0;
+  padding: 6px 14px;
+  color: @text-secondary;
+  border: none;
+}
+
+notebook tab:checked {
+  background-color: @glass-active;
+  color: @text-primary;
+}
+
+combobox {
+  background-color: @glass-bg;
+  border: 1px solid @glass-border;
+  border-radius: 10px;
+}
+
+progressbar {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+}
+
+progressbar trough {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  min-height: 6px;
+}
+
+progressbar progress {
+  background: linear-gradient(135deg, @accent, @accent-hover);
+  border-radius: 6px;
+}
+
+scale slider {
+  background-color: @accent;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  min-width: 14px;
+  min-height: 14px;
+}
+
+scale trough {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  min-height: 4px;
+}
+
+scale highlight {
+  background: linear-gradient(135deg, @accent, @accent-hover);
+  border-radius: 6px;
+}
+
+tooltip {
+  background-color: rgba(20, 10, 40, 0.95);
+  border: 1px solid @glass-border;
+  border-radius: 8px;
+  color: @text-primary;
+  padding: 6px 10px;
+}
+
+treeview {
+  background-color: transparent;
+}
+
+treeview:hover {
+  background-color: @glass-hover;
+}
+
+treeview:selected {
+  background-color: @accent;
+}
+
+list, scrolledwindow, paned {
+  background-color: transparent;
+}
+
+frame {
+  border-radius: 10px;
+  border: 1px solid @glass-border;
+}
+
+checkbutton, radiobutton {
+  color: @text-primary;
+}
+
+check, radio {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid @glass-border;
+  border-radius: 3px;
+}
+
+check:checked, radio:checked {
+  background-color: @accent;
+  border-color: @accent;
+}
+
+switch {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  border: none;
+}
+
+switch:checked {
+  background-color: @accent;
+}
+
+switch slider {
+  background-color: @text-primary;
+  border-radius: 50%;
+  min-width: 18px;
+  min-height: 18px;
+}
+
+headerbar {
+  background-color: @glass-bg;
+  border-bottom: 1px solid @glass-border;
+  border-radius: 14px 14px 0 0;
+  padding: 4px 8px;
+  color: @text-primary;
+  min-height: 40px;
+}
+
+statusbar {
+  color: @text-secondary;
+  font-size: 0.9em;
+}
+
+row {
+  border-radius: 8px;
+}
+
+row:selected {
+  background-color: rgba(124, 77, 255, 0.30);
+}
+
+infobar {
+  border-radius: 8px;
+  border: none;
+}
+
+infobar.info {
+  background-color: rgba(124, 77, 255, 0.20);
+}
+
+infobar.warning {
+  background-color: rgba(255, 200, 50, 0.20);
+}
+
+infobar.error {
+  background-color: rgba(255, 85, 85, 0.20);
+}
+
+paned > separator {
+  background-color: @glass-border;
+  min-width: 1px;
+}
+
+.caja-desktop, .nautilus-desktop, .nemo-desktop {
+  background-color: transparent;
+}

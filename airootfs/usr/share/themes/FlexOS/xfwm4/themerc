@@ -1,0 +1,74 @@
+# FlexOS XFWM4 Theme - Glassmorphism window decorations
+# XFCE window manager theme
+
+# Window border
+border_width = 0
+
+# Title
+title_height = 32
+title_text_align = CENTER
+title_font = Cantarell Bold 11
+title_shadow = false
+
+# Inactive title
+title_text_color = rgba(255, 255, 255, 0.50)
+title_shadow_color = rgba(0, 0, 0, 0.00)
+
+# Active title
+active_title_text_color = #ffffff
+active_title_shadow_color = rgba(0, 0, 0, 0.00)
+
+# Colors
+button_color = #ffffff
+button_active_color = #ffffff
+button_hover_color = #ffffff
+button_pressed_color = #ffffff
+
+# Inactive title bar
+title_color = rgba(255, 255, 255, 0.06)
+title_shade_color = rgba(255, 255, 255, 0.06)
+
+# Active title bar
+active_title_color = rgba(255, 255, 255, 0.12)
+active_title_shade_color = rgba(255, 255, 255, 0.12)
+
+# Inactive window
+inactive_hilight_color = rgba(255, 255, 255, 0.04)
+inactive_mid_color = rgba(255, 255, 255, 0.04)
+inactive_shadow_color = rgba(0, 0, 0, 0.02)
+inactive_text_shadow_color = rgba(0, 0, 0, 0.00)
+
+# Active window
+active_hilight_color = rgba(255, 255, 255, 0.06)
+active_mid_color = rgba(255, 255, 255, 0.06)
+active_shadow_color = rgba(0, 0, 0, 0.04)
+active_text_shadow_color = rgba(0, 0, 0, 0.00)
+
+# Button colors
+button_active_color = #ffffff
+button_hover_color = #ffffff
+button_pressed_color = #ffffff
+
+# Close button
+close_button_active = rgba(255, 85, 85, 0.70)
+close_button_inactive = rgba(255, 85, 85, 0.30)
+close_button_hover = rgba(255, 85, 85, 0.90)
+close_button_pressed = rgba(255, 85, 85, 0.95)
+
+# Maximize button
+maximize_button_active = rgba(80, 200, 80, 0.70)
+maximize_button_inactive = rgba(80, 200, 80, 0.30)
+maximize_button_hover = rgba(80, 200, 80, 0.90)
+maximize_button_pressed = rgba(80, 200, 80, 0.95)
+
+# Minimize button
+minimize_button_active = rgba(255, 200, 50, 0.70)
+minimize_button_inactive = rgba(255, 200, 50, 0.30)
+minimize_button_hover = rgba(255, 200, 50, 0.90)
+minimize_button_pressed = rgba(255, 200, 50, 0.95)
+
+# Menu button
+menu_button_active = rgba(124, 77, 255, 0.60)
+menu_button_inactive = rgba(124, 77, 255, 0.25)
+menu_button_hover = rgba(124, 77, 255, 0.80)
+menu_button_pressed = rgba(124, 77, 255, 0.90)

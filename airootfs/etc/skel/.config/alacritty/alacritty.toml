@@ -1,0 +1,79 @@
+# FlexOS Alacritty Config - Terminal transparent style glassmorphism
+
+env:
+  TERM: alacritty
+
+window:
+  opacity: 0.88
+  padding:
+    x: 12
+    y: 8
+  decorations: full
+  startup_mode: Windowed
+  title: FlexOS Terminal
+  dynamic_title: true
+  decorations_theme_variant: Dark
+
+scrolling:
+  history: 10000
+  multiplier: 3
+
+font:
+  normal:
+    family: Cantarell
+    style: Regular
+  bold:
+    family: Cantarell
+    style: Bold
+  italic:
+    family: Cantarell
+    style: Italic
+  size: 11.0
+  offset:
+    x: 0
+    y: 0
+  glyph_offset:
+    x: 0
+    y: 0
+
+draw_bold_text_with_bright_colors: true
+
+colors:
+  primary:
+    background: '#1a0a2e'
+    foreground: '#e0d0ff'
+  normal:
+    black:   '#2e1a47'
+    red:     '#ff5577'
+    green:   '#50fa7b'
+    yellow:  '#f1fa8c'
+    blue:    '#7c4dff'
+    magenta: '#ff79c6'
+    cyan:    '#8be9fd'
+    white:   '#e0d0ff'
+  bright:
+    black:   '#3d2a5c'
+    red:     '#ff7799'
+    green:   '#7aff9b'
+    yellow:  '#f5ff9e'
+    blue:    '#9c7cff'
+    magenta: '#ff99d6'
+    cyan:    '#abf3ff'
+    white:   '#f0e8ff'
+
+selection:
+  save_to_clipboard: true
+
+cursor:
+  style: Block
+  unfocused_hollow: true
+
+live_config_reload: true
+
+shell:
+  program: /usr/bin/bash
+  args:
+    - --login
+
+key_bindings:
+  - { key: Return, mods: Super, command: { program: "alacritty", args: [] } }

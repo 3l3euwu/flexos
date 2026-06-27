@@ -1,0 +1,15 @@
+# FlexOS sudo config - allow live user to run calamares and system tools
+Defaults env_keep += "DISPLAY XAUTHORITY"
+Defaults:liveuser !requiretty
+
+# Calamares installer (passwordless)
+liveuser ALL=(ALL) NOPASSWD: /usr/bin/calamares
+liveuser ALL=(ALL) NOPASSWD: /usr/sbin/calamares
+liveuser ALL=(ALL) NOPASSWD: /usr/bin/pacman
+liveuser ALL=(ALL) NOPASSWD: /usr/sbin/pacman
+liveuser ALL=(ALL) NOPASSWD: /usr/bin/mkarchiso
+liveuser ALL=(ALL) NOPASSWD: /usr/bin/mount
+liveuser ALL=(ALL) NOPASSWD: /usr/bin/umount
+
+# Allow all in live session (convenient for testing)
+liveuser ALL=(ALL) NOPASSWD: ALL

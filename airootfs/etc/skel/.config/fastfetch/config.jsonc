@@ -1,0 +1,57 @@
+{
+  $schema: "https://raw.githubusercontent.com/fastfetch-cli/fastfetch/refs/heads/dev/doc/json_schema.json",
+  version: "2.0",
+
+  logo: {
+    source: "arch",
+    padding: {
+      top: 2,
+      left: 4,
+      right: 2
+    }
+  },
+
+  display: {
+    separator: "  →  ",
+    color: {
+      keys: "cyan",
+      separator: "magenta",
+      title: "magenta"
+    },
+    keyWidth: 16,
+    compact: true
+  },
+
+  modules: [
+    "title",
+    "separator",
+    "os",
+    "host",
+    "kernel",
+    "uptime",
+    "packages",
+    "shell",
+    "de",
+    "wm",
+    "wmtheme",
+    "terminal",
+    "terminalfont",
+    "cpu",
+    "gpu",
+    "memory",
+    "disk",
+    "battery",
+    "locale",
+    "separator",
+    "colors"
+  ],
+
+  custom: [
+    {
+      type: "command",
+      key: "████████",
+      command: "printf '\\e[38;2;124;77;255m█\\e[38;2;147;97;255m█\\e[38;2;170;117;255m█\\e[38;2;193;137;255m█\\e[38;2;216;157;255m█\\e[38;2;239;177;255m█\\e[38;2;255;197;255m█\\e[38;2;255;217;255m█\\e[0m'",
+      format: "{1}"
+    }
+  ]
+}

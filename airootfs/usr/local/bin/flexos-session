@@ -1,0 +1,15 @@
+#!/bin/bash
+# FlexOS XFCE session startup
+# Sourced by ~/.xinitrc for startx or by DM session
+
+# Start picom (compositor) for glassmorphism effects
+if command -v picom &> /dev/null; then
+  picom --config /home/*/.config/picom/picom.conf &
+fi
+
+# Notifications
+if command -v dunst &> /dev/null; then
+  dunst &
+fi
+
+exec startxfce4

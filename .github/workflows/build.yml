@@ -1,0 +1,55 @@
+# FlexOS - GitHub Actions Build
+# XFCE + Glassmorphism Edition
+
+name: FlexOS Build
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Dépendances
+      run: |
+        pacman -Syu --noconfirm
+        pacman -S --noconfirm archiso squashfs-tools grub syslinux xorriso libisoburn mtools
+
+    - name: Build FlexOS ISO
+      run: |
+        mkdir -p /tmp/build
+        cp -r ${{ github.workspace }}/* /tmp/build/
+        cd /tmp/build
+        chmod +x build-iso.sh
+        ./build-iso.sh
+
+    - name: Upload ISO
+      uses: actions/upload-artifact@v4
+      with:
+        name: flexos-iso
+        path: /tmp/build/out/*.iso
+        compression-level: 0
+
+  release:
+    needs: build
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/download-artifact@v4
+      with:
+        name: flexos-iso
+        path: ./iso
+    - uses: softprops/action-gh-release@v1
+      with:
+        tag_name: "flexos-$(date +'%Y%m%d')"
+        name: "FlexOS $(date +'%Y-%m-%d')"
+        files: ./iso/*.iso
+        draft: false
+        prerelease: false

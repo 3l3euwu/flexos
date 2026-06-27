@@ -1,0 +1,95 @@
+/* FlexOS GTK4 Theme - Glassmorphism Aesthetic */
+
+@define-color glass-bg rgba(255, 255, 255, 0.14);
+@define-color glass-border rgba(255, 255, 255, 0.28);
+@define-color glass-hover rgba(255, 255, 255, 0.22);
+@define-color glass-active rgba(255, 255, 255, 0.32);
+@define-color text-primary #ffffff;
+@define-color text-secondary rgba(255, 255, 255, 0.70);
+@define-color accent #7c4dff;
+@define-color accent-hover #9c7cff;
+@define-color shadow-dark rgba(0, 0, 0, 0.30);
+
+window {
+  border-radius: 14px;
+  background-color: @glass-bg;
+  border: 1px solid @glass-border;
+  box-shadow: 0 8px 32px @shadow-dark;
+}
+
+window.background {
+  background-color: transparent;
+}
+
+button {
+  background-color: @glass-bg;
+  border: 1px solid @glass-border;
+  border-radius: 10px;
+  color: @text-primary;
+  padding: 6px 14px;
+  transition: all 200ms ease;
+}
+
+button:hover {
+  background-color: @glass-hover;
+}
+
+entry {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid @glass-border;
+  border-radius: 10px;
+  color: @text-primary;
+  padding: 6px 10px;
+  caret-color: @accent;
+}
+
+entry:focus {
+  border-color: @accent;
+  background-color: rgba(124, 77, 255, 0.10);
+}
+
+menu {
+  background-color: rgba(30, 15, 60, 0.95);
+  border: 1px solid @glass-border;
+  border-radius: 12px;
+  padding: 4px;
+}
+
+menuitem {
+  border-radius: 8px;
+  padding: 6px 10px;
+  color: @text-primary;
+}
+
+menuitem:hover {
+  background-color: @glass-hover;
+}
+
+switch {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+}
+
+switch:checked {
+  background-color: @accent;
+}
+
+switch slider {
+  background-color: @text-primary;
+  border-radius: 50%;
+}
+
+scrollbar slider {
+  background-color: @glass-border;
+  border-radius: 6px;
+}
+
+progressbar {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+}
+
+progressbar progress {
+  background: linear-gradient(135deg, @accent, @accent-hover);
+  border-radius: 6px;
+}

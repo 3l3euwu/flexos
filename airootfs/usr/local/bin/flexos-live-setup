@@ -1,0 +1,19 @@
+# FlexOS - Configure live user on boot
+
+# Create live user if it doesn't exist
+if ! id "liveuser" &>/dev/null; then
+    useradd -m -G wheel,power,storage,audio,video,network,input -s /bin/bash liveuser 2>/dev/null
+    echo "liveuser:liveuser" | chpasswd 2>/dev/null
+fi
+
+# Ensure home directory permissions
+chown -R liveuser:liveuser /home/liveuser 2>/dev/null || true
+
+# Copy skel configs for live user
+if [ -d /home/liveuser ] && [ ! -f /home/liveuser/.bashrc ]; then
+    cp -r /etc/skel/. /home/liveuser/ 2>/dev/null || true
+    chown -R liveuser:liveuser /home/liveuser/ 2>/dev/null || true
+fi
+
+# Start lightdm if not running
+systemctl start lightdm 2>/dev/null || true

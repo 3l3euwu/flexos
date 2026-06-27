@@ -1,0 +1,15 @@
+[org.gnome.desktop.interface]
+gtk-theme='FlexOS'
+icon-theme='Papirus'
+cursor-theme='breeze'
+font-name='Cantarell 11'
+document-font-name='Cantarell 11'
+monospace-font-name='Cantarell 11'
+
+[org.gnome.desktop.wm.preferences]
+theme='FlexOS'
+titlebar-font='Cantarell Bold 11'
+
+[org.gnome.desktop.background]
+picture-uri='file:///usr/share/backgrounds/flexos/flex-wallpaper.svg'
+picture-options='zoom'

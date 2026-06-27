@@ -1,0 +1,8 @@
+! FlexOS Xresources
+Xft.dpi: 96
+Xft.antialias: true
+Xft.hinting: full
+Xft.hintstyle: hintfull
+Xft.rgba: rgb
+Xcursor.theme: breeze
+Xcursor.size: 24

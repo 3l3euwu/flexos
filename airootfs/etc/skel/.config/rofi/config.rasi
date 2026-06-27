@@ -1,0 +1,28 @@
+# FlexOS Rofi Config - Glassmorphism style
+
+configuration {
+  modi: "run,drun,window";
+  show-icons: true;
+  icon-theme: "Papirus";
+  drun-display-format: "{name}";
+  display-drun: "  Apps";
+  display-run: "  Run";
+  display-window: "  Windows";
+  sidebar-mode: false;
+  location: 0;
+  x-offset: 0;
+  y-offset: 0;
+  width: 40;
+  height: 60;
+  font: "Cantarell 12";
+  lines: 12;
+  columns: 1;
+  padding: 16;
+  spacing: 8;
+  case-sensitive: false;
+  terminal: "alacritty";
+  matching: "normal";
+  theme: "~/.config/rofi/glassmorphism.rasi";
+}
+
+@theme "~/.config/rofi/glassmorphism.rasi"

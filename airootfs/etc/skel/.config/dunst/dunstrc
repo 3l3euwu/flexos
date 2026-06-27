@@ -1,0 +1,71 @@
+[global]
+    font = "Cantarell 10"
+    markup = true
+    plain_text = false
+    format = "<b>%s</b>\\n%b"
+    alignment = left
+    vertical_alignment = center
+    show_age_threshold = 60
+    word_wrap = true
+    ellipsize = middle
+    ignore_newline = false
+    stack_duplicates = true
+    hide_duplicates_count = false
+    show_indicators = true
+
+    # Geometry
+    origin = top-right
+    offset = 14x48
+    width = 340
+    height = 50
+
+    # Glassmorphism frame
+    corner_radius = 14
+    rounded_corners = all
+    border = 1
+    border_color = "#4dffffff"
+
+    # Background
+    transparency = 20
+    background = "#1a0a2e"
+    foreground = "#e0d0ff"
+
+    # Timeout
+    timeout = 5
+    idle_threshold = 120
+
+    # History
+    sticky_history = yes
+    history_length = 20
+
+    # Config
+    always_run_script = true
+    title = "Dunst"
+    class = "Dunst"
+    follow = "mouse"
+    indicate_hidden = yes
+    sort = yes
+
+[shortcuts]
+    close = "ctrl+space"
+    close_all = "ctrl+shift+space"
+    history = "ctrl+grave"
+    context = "ctrl+shift+period"
+
+[urgency_low]
+    background = "#1a0a2e"
+    foreground = "#e0d0ff"
+    timeout = 5
+    highlight = "#bb99ff"
+
+[urgency_normal]
+    background = "#1a0a2e"
+    foreground = "#ffffff"
+    timeout = 8
+    highlight = "#7c4dff"
+
+[urgency_critical]
+    background = "#2e0a1a"
+    foreground = "#ffffff"
+    timeout = 0
+    highlight = "#ff5577"
