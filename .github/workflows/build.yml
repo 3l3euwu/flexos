@@ -33,12 +33,20 @@ jobs:
         ./build-iso.sh
 
     - name: Upload ISO
+      if: success()
       uses: actions/upload-artifact@v4
       with:
         name: flexos-iso
         path: /tmp/build/out/flexos-*.iso
         compression-level: 0
         if-no-files-found: error
+
+    - name: Upload build.log (failure)
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-log
+        path: /tmp/build/build.log
 
   release:
     needs: build
