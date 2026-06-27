@@ -14,8 +14,16 @@ nano
 bash-completion
 
 #=============== XFCE DESKTOP ENVIRONMENT ===============
-xfce4
-xfce4-goodies
+# Core XFCE (expanded group to avoid interactive prompts)
+exo
+garcon
+xfce4-appfinder
+xfce4-panel
+xfce4-session
+xfconf
+xfdesktop
+xfwm4
+# Extra
 xfce4-terminal
 xfce4-whiskermenu-plugin
 xfce4-docklike-plugin
@@ -25,6 +33,7 @@ xfce4-screenshooter
 xfce4-power-manager
 xfce4-settings
 xfce4-taskmanager
+xfce4-notifyd
 thunar
 thunar-archive-plugin
 thunar-volman
@@ -38,8 +47,13 @@ gvfs-afc
 picom
 
 #=============== DISPLAY & SESSION ===============
-xorg
+xorg-server
+xorg-xauth
 xorg-xinit
+xorg-xrandr
+xorg-xrdb
+xorg-xsetroot
+xorg-xdpyinfo
 lightdm
 lightdm-gtk-greeter
 light-locker
@@ -50,6 +64,7 @@ xf86-video-intel
 xf86-video-amdgpu
 xf86-video-vesa
 xf86-video-fbdev
+xf86-video-nouveau
 vulkan-intel
 vulkan-radeon
 vulkan-mesa-layers
@@ -63,7 +78,6 @@ fastfetch
 htop
 btop
 ranger
-neofetch
 
 #=============== BROWSER & APPS ===============
 firefox
@@ -78,9 +92,8 @@ geany
 gparted
 
 #=============== THEMES & ICONS ===============
-arc-gtk-theme
 papirus-icon-theme
-ttf-cantarell
+cantarell-fonts
 ttf-dejavu
 ttf-liberation
 ttf-font-awesome
@@ -132,12 +145,10 @@ edk2-shell
 
 #=============== INSTALLER (Calamares) ===============
 calamares
-calamares-configdefaults
 kpmcore
 extra-cmake-modules
 qt5-wayland
 qt5-svg
-qt5-webkit
 qt5-xmlpatterns
 
 #=============== MISC ===============
