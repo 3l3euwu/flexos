@@ -143,13 +143,12 @@ rsync
 syslinux
 edk2-shell
 
-#=============== INSTALLER (Calamares) ===============
-calamares
-kpmcore
-extra-cmake-modules
-qt5-wayland
-qt5-svg
-qt5-xmlpatterns
+#=============== INSTALLER ===============
+dialog
+gptfdisk
+parted
+dosfstools
+util-linux
 
 #=============== MISC ===============
 acpi

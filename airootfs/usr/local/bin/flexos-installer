@@ -1,0 +1,160 @@
+#!/bin/bash
+# FlexOS Installer - copies live system to disk and configures it
+set -e
+
+if [ "$EUID" -ne 0 ]; then echo "Please run as root"; exit 1; fi
+if ! command -v dialog &>/dev/null; then echo "dialog required"; exit 1; fi
+
+DIALOG="dialog --stdout"
+
+# WELCOME
+$DIALOG --title "FlexOS Installer" --msgbox "\nWelcome to FlexOS Linux Installer!\n\nThis will install FlexOS on your computer.\n⚠ ALL DATA on target disk will be ERASED!\n\nPress OK to continue." 14 60
+
+# TIMEZONE
+TZ=$( $DIALOG --title "Timezone" --inputbox "\nTimezone (e.g., Europe/Paris, America/New_York):" 10 60 "Europe/Paris" )
+[ -z "$TZ" ] && exit 1
+
+# LOCALE
+LOCALE=$( $DIALOG --title "Locale" --inputbox "\nLocale (e.g., en_US.UTF-8, fr_FR.UTF-8):" 10 60 "en_US.UTF-8" )
+[ -z "$LOCALE" ] && exit 1
+
+# KEYMAP
+KEYMAP=$( $DIALOG --title "Keyboard" --inputbox "\nKeyboard layout (us, fr, de, etc):" 10 60 "us" )
+[ -z "$KEYMAP" ] && exit 1
+
+# HOSTNAME
+HOSTNAME=$( $DIALOG --title "Hostname" --inputbox "\nComputer name:" 10 60 "flexos" )
+[ -z "$HOSTNAME" ] && exit 1
+
+# USER
+USERNAME=$( $DIALOG --title "User" --inputbox "\nUsername (lowercase):" 10 60 "user" )
+[ -z "$USERNAME" ] && exit 1
+
+PASS1=$( $DIALOG --passwordbox "\nPassword for $USERNAME:" 10 60 )
+PASS2=$( $DIALOG --passwordbox "\nConfirm password:" 10 60 )
+[ "$PASS1" != "$PASS2" ] && { $DIALOG --msgbox "Passwords don't match!" 5 40; exit 1; }
+
+ROOTPASS1=$( $DIALOG --passwordbox "\nRoot password:" 10 60 )
+ROOTPASS2=$( $DIALOG --passwordbox "\nConfirm root password:" 10 60 )
+[ "$ROOTPASS1" != "$ROOTPASS2" ] && { $DIALOG --msgbox "Passwords don't match!" 5 40; exit 1; }
+
+# DISK SELECTION
+DISK_MENU=()
+while read -r line; do
+    D=$(echo "$line" | awk '{print $1}')
+    S=$(echo "$line" | awk '{print $2}')
+    M=$(echo "$line" | awk '{$1=$2=""; print $0}' | xargs)
+    DISK_MENU+=("$D" "${S} - ${M}")
+done < <(lsblk -d -o NAME,SIZE,MODEL -n 2>/dev/null)
+
+[ ${#DISK_MENU[@]} -eq 0 ] && { $DIALOG --msgbox "No disks found!" 5 40; exit 1; }
+
+DISK=$( $DIALOG --menu "Select disk (ALL DATA ERASED):" 16 65 8 "${DISK_MENU[@]}" )
+[ -z "$DISK" ] && exit 1
+
+TARGET="/dev/$DISK"
+
+# CONFIRM
+$DIALOG --title "Confirm" --yesno "\nInstall FlexOS on: $TARGET\nHostname: $HOSTNAME\nUser: $USERNAME\nLocale: $LOCALE\nTimezone: $TZ\n\nALL DATA on $TARGET will be LOST!" 16 60 || exit 1
+
+# ───────── PARTITION ─────────
+$DIALOG --infobox "Partitioning $TARGET..." 3 60
+
+PART="${TARGET}"
+if echo "$TARGET" | grep -q "nvme"; then PART="${TARGET}p"; fi
+
+if [ -d /sys/firmware/efi ]; then
+    EFI=true
+    parted -s "$TARGET" mklabel gpt
+    parted -s "$TARGET" mkpart primary fat32 1MiB 512MiB
+    parted -s "$TARGET" set 1 esp on
+    parted -s "$TARGET" mkpart primary ext4 512MiB 100%
+    mkfs.fat -F32 "${PART}1"
+    EFI_PART="${PART}1"
+    ROOT_PART="${PART}2"
+else
+    EFI=false
+    parted -s "$TARGET" mklabel msdos
+    parted -s "$TARGET" mkpart primary ext4 1MiB 100%
+    parted -s "$TARGET" set 1 boot on
+    ROOT_PART="${PART}1"
+fi
+
+mkfs.ext4 -F "$ROOT_PART"
+
+# ───────── MOUNT ─────────
+mount "$ROOT_PART" /mnt
+[ "$EFI" = true ] && { mkdir -p /mnt/boot/efi; mount "$EFI_PART" /mnt/boot/efi; }
+
+# ───────── INSTALL BASE ─────────
+$DIALOG --infobox "Installing base system..." 3 60
+
+pacstrap -K /mnt base linux linux-firmware base-devel \
+    sudo vim nano bash-completion \
+    networkmanager dhcpcd openssh \
+    grub btrfs-progs dosfstools \
+    xfce4 xfce4-goodies \
+    lightdm lightdm-gtk-greeter light-locker \
+    pipewire pipewire-pulse wireplumber pavucontrol \
+    alacritty firefox mousepad ristretto \
+    papirus-icon-theme cantarell-fonts ttf-dejavu \
+    noto-fonts noto-fonts-emoji \
+    mesa xf86-video-vesa xf86-video-fbdev \
+    fastfetch htop \
+    git wget curl \
+    picom rofi dunst feh flameshot \
+    gvfs gvfs-mtp \
+    xdg-utils xdg-user-dirs \
+    unzip zip p7zip file-roller \
+    network-manager-applet \
+    bluez bluez-utils blueman \
+    polkit polkit-gnome \
+    udisks2 ntfs-3g \
+    kvantum qt5ct adwaita-icon-theme \
+    conky galculator parole
+
+genfstab -U /mnt >>/mnt/etc/fstab
+
+# ───────── CHROOT ─────────
+$DIALOG --infobox "Configuring system..." 3 60
+
+arch-chroot /mnt /bin/bash <<CHROOT
+set -e
+
+ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
+hwclock --systohc
+
+echo "$LOCALE UTF-8" >> /etc/locale.gen
+locale-gen
+echo "LANG=$LOCALE" > /etc/locale.conf
+echo "KEYMAP=$KEYMAP" > /etc/vconsole.conf
+echo "$HOSTNAME" > /etc/hostname
+
+cat > /etc/hosts <<EOF
+127.0.0.1   localhost
+::1         localhost
+127.0.1.1   $HOSTNAME.localdomain $HOSTNAME
+EOF
+
+useradd -m -G wheel,power,storage,audio,video,network,input -s /bin/bash $USERNAME
+echo "$USERNAME:$PASS1" | chpasswd
+echo "root:$ROOTPASS1" | chpasswd
+echo "%wheel ALL=(ALL:ALL) ALL" > /etc/sudoers.d/10-wheel
+
+if $EFI; then
+    grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB --recheck
+else
+    grub-install --target=i386-pc $TARGET
+fi
+grub-mkconfig -o /boot/grub/grub.cfg
+
+systemctl enable NetworkManager.service
+systemctl enable lightdm.service
+systemctl enable bluetooth.service
+systemctl enable fstrim.timer
+CHROOT
+
+# ───────── CLEANUP ─────────
+umount -R /mnt 2>/dev/null || true
+
+$DIALOG --msgbox "\n✅ FlexOS installed successfully!\n\nHostname: $HOSTNAME\nUser: $USERNAME\n\nReboot and remove the installation media." 14 60

@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Name=Installer FlexOS
 Comment=Installer FlexOS Linux sur votre ordinateur
-Exec=sudo -E calamares -d
+Exec=sudo -E flexos-installer
 Icon=drive-harddisk
 Terminal=false
 Type=Application
