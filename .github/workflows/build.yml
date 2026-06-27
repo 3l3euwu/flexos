@@ -24,8 +24,9 @@ jobs:
 
     - name: Build FlexOS ISO
       run: |
+        ls -la $GITHUB_WORKSPACE
         mkdir -p /tmp/build
-        cp -r ${{ github.workspace }}/* /tmp/build/
+        cp -r $GITHUB_WORKSPACE/. /tmp/build/
         cd /tmp/build
         chmod +x build-iso.sh
         ./build-iso.sh
@@ -34,8 +35,9 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: flexos-iso
-        path: /tmp/build/out/*.iso
+        path: /tmp/build/out/flexos-*.iso
         compression-level: 0
+        if-no-files-found: error
 
   release:
     needs: build
