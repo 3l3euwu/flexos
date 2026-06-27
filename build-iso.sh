@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # FlexOS - Build ISO (XFCE + Glassmorphism)
 
-set -euo pipefail
+set -u
 
 RED='\033[0;31m'; GREEN='\033[0;32m'; CYAN='\033[0;36m'; PURPLE='\033[0;35m'; NC='\033[0m'
 
@@ -29,7 +29,12 @@ fi
 echo -e "${CYAN}🚀 Build FlexOS ISO...${NC}"
 echo -e "${CYAN}⏳ ~20-30 minutes${NC}"
 
-if mkarchiso -v "." 2>&1 | tee build.log; then
+set +e
+mkarchiso -v "." > >(tee build.log) 2>&1
+RC=$?
+set -e
+
+if [ $RC -eq 0 ]; then
     echo -e "\n${GREEN}✅ Succès !${NC}"
     for f in out/flexos-*.iso; do
         [ -f "$f" ] && cp "$f" "../$(basename "$f")" && \
@@ -38,5 +43,5 @@ if mkarchiso -v "." 2>&1 | tee build.log; then
     echo -e "\n  ${CYAN}dd:${NC} sudo dd if=flexos-*.iso of=/dev/sdX bs=4M status=progress && sync"
     echo -e "  ${CYAN}VM:${NC} qemu-system-x86_64 -cdrom flexos-*.iso -m 2048 -enable-kvm"
 else
-    echo -e "${RED}❌ Échec. Voir build.log${NC}"; exit 1
+    echo -e "${RED}❌ Échec (code $RC). build.log ci-dessus.${NC}"; exit 1
 fi
