@@ -142,6 +142,8 @@ rsync
 #=============== BOOT ===============
 syslinux
 edk2-shell
+efibootmgr
+grub
 
 #=============== INSTALLER ===============
 dialog
