@@ -32,6 +32,20 @@ jobs:
         chmod +x build-iso.sh
         ./build-iso.sh
 
+    - name: Show build.log
+      if: always()
+      run: |
+        if [ -f /tmp/build/build.log ]; then
+          echo "::group::Full build.log"
+          cat /tmp/build/build.log
+          echo "::endgroup::"
+          echo "::group::Last 50 lines"
+          tail -50 /tmp/build/build.log
+          echo "::endgroup::"
+        else
+          echo "::warning::build.log not found"
+        fi
+
     - name: Upload ISO
       if: success()
       uses: actions/upload-artifact@v4
