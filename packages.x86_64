@@ -126,6 +126,10 @@ wget
 curl
 rsync
 
+#=============== BOOT ===============
+syslinux
+edk2-shell
+
 #=============== INSTALLER (Calamares) ===============
 calamares
 calamares-configdefaults
